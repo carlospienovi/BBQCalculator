@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/pref_prices" />
+
+    <com.carlospienovi.bbqcalculator.EditTextPreference
+        android:key="meat_preference"
+        android:title="@string/pref_meat_title"
+        android:inputType="numberDecimal"
+        android:defaultValue="10" />
+
+    <com.carlospienovi.bbqcalculator.EditTextPreference
+        android:key="sausage_preference"
+        android:title="@string/pref_sausage_title"
+        android:inputType="numberDecimal"
+        android:defaultValue="10" />
+
+    <com.carlospienovi.bbqcalculator.EditTextPreference
+        android:key="blood_sausage_preference"
+        android:title="@string/pref_blood_sausage_title"
+        android:inputType="numberDecimal"
+        android:defaultValue="10" />
+
+    <com.carlospienovi.bbqcalculator.EditTextPreference
+        android:key="provolone_cheese_preference"
+        android:title="@string/pref_provolone_cheese_title"
+        android:inputType="numberDecimal"
+        android:defaultValue="10" />
+
+    <com.carlospienovi.bbqcalculator.EditTextPreference
+        android:key="bread_preference"
+        android:title="@string/pref_bread_title"
+        android:inputType="numberDecimal"
+        android:defaultValue="10" />
+
+    <com.carlospienovi.bbqcalculator.EditTextPreference
+        android:key="beverage_preference"
+        android:title="@string/pref_beverage_title"
+        android:inputType="numberDecimal"
+        android:defaultValue="10" />
+
+</PreferenceScreen>

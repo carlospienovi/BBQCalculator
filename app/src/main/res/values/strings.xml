@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BBQCalculator</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_prices">Food Prices</string>
+    <string name="title_activity_settings">Prices</string>
+    <string name="pref_meat_title">Meat (U$S/Kg)</string>
+    <string name="pref_sausage_title">Sausage (U$S/Kg)</string>
+    <string name="pref_bread_title">Bread (U$S/u)</string>
+    <string name="pref_blood_sausage_title">Blood Sausage (U$S/Kg)</string>
+    <string name="pref_provolone_cheese_title">Provolone Cheese (U$S/Kg)</string>
+    <string name="pref_beverage_title">Beverage (U$S/Lt.)</string>
+    <string name="how_many">How many people?</string>
+    <string name="hungry_starving">Starving</string>
+    <string name="hungry_neutral">Neutral</string>
+    <string name="hungry_satisfied">Satisfied</string>
+    <string name="meat">Meat</string>
+    <string name="beverage">Beverage</string>
+    <string name="bread">Bread</string>
+    <string name="blood_sausage">Blood Sausage</string>
+    <string name="provolone_cheese">Provolone Cheese</string>
+    <string name="sausage">Sausage</string>
+    <string name="button_calculate">Calculate</string>
+    <string name="title_activity_calculation">Calculation</string>
+    <string name="default_price_value">10</string>
+    <string name="text_view_result_title">Barbecue for %s people.</string>
+    <string name="text_view_need">You will need:</string>
+    <string name="text_view_result_meat">%s Kg. of Meat</string>
+    <string name="text_view_result_sausage">%s Kg. of Sausage</string>
+    <string name="text_view_result_blood_sausage">%s Kg. of Blood Sausage</string>
+    <string name="text_view_result_provolone_cheese">%s Kg. of Provolone Cheese</string>
+    <string name="text_view_result_bread">%s Breads</string>
+    <string name="text_view_result_beverage">%s Lt. of Beverage</string>
+    <string name="text_view_total_amount">Total: %s U$S</string>
+
+</resources>
