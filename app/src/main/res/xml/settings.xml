@@ -38,4 +38,14 @@
         android:inputType="numberDecimal"
         android:defaultValue="10" />
 
+    <ListPreference
+        android:key="theme_preference"
+        android:title="@string/pref_theme_title"
+        android:summary="@string/pref_theme_summary"
+        android:entries="@array/theme_options"
+        android:entryValues="@array/theme_options"
+        android:defaultValue="@string/black">
+
+    </ListPreference>
+
 </PreferenceScreen>

@@ -33,5 +33,16 @@
     <string name="text_view_result_bread">%s Breads</string>
     <string name="text_view_result_beverage">%s Lt. of Beverage</string>
     <string name="text_view_total_amount">Total: %s U$S</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_summary">Stylize your app</string>
+    <string name="black">Black</string>
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+
+    <string-array name="theme_options">
+        <item>@string/black</item>
+        <item>@string/red</item>
+        <item>@string/blue</item>
+    </string-array>
 
 </resources>

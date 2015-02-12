@@ -1,13 +1,16 @@
 package com.carlospienovi.bbqcalculator;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 /**
  * Created by carlos.pienovi on 12/02/2015.
  */
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends CustomActivity {
 
     public static class AppSettingsFragment extends PreferenceFragment {
         @Override

@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
 
-public class CalculationActivity extends ActionBarActivity {
+public class CalculationActivity extends CustomActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
