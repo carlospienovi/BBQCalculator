@@ -68,36 +68,25 @@ public class OptionsFragment extends Fragment {
                 boolean bread = mSwitchBread.isChecked();
                 boolean beverage = mSwitchBeverage.isChecked();
 
+                Barbecue barbecue = new Barbecue(numberPeople, meat, sausage,
+                        bloodSausage, provoloneCheese, bread, beverage);
+
                 if (getActivity().findViewById(R.id.container_right) != null) {
-                    instantiateFragment(numberPeople, meat, sausage, bloodSausage,
-                            provoloneCheese, bread, beverage);
+                    instantiateFragment(barbecue);
                 } else {
-                    instantiateActivity(numberPeople, meat, sausage, bloodSausage,
-                            provoloneCheese, bread, beverage);
+                    instantiateActivity(barbecue);
                 }
             }
 
-            private void instantiateActivity(int numberPeople, boolean meat, boolean sausage,
-                                             boolean bloodSausage, boolean provoloneCheese,
-                                             boolean bread, boolean beverage) {
+            private void instantiateActivity(Barbecue barbecue) {
                 Intent i = new Intent(getActivity(), CalculationActivity.class);
-                i.putExtra(CalculationFragment.NUMBER_PEOPLE, numberPeople);
-                i.putExtra(CalculationFragment.MEAT, meat);
-                i.putExtra(CalculationFragment.SAUSAGE, sausage);
-                i.putExtra(CalculationFragment.BLOOD_SAUSAGE, bloodSausage);
-                i.putExtra(CalculationFragment.PROVOLONE_CHEESE, provoloneCheese);
-                i.putExtra(CalculationFragment.BREAD, bread);
-                i.putExtra(CalculationFragment.BEVERAGE, beverage);
+                i.putExtra(CalculationFragment.BARBECUE, barbecue);
                 startActivity(i);
             }
 
-            private void instantiateFragment(int numberPeople, boolean meat, boolean sausage,
-                                             boolean bloodSausage, boolean provoloneCheese,
-                                             boolean bread, boolean beverage) {
+            private void instantiateFragment(Barbecue barbecue) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_right, CalculationFragment.newInstance
-                                (numberPeople, meat, sausage, bloodSausage,
-                                        provoloneCheese, bread, beverage))
+                        .replace(R.id.container_right, CalculationFragment.newInstance(barbecue))
                         .commit();
             }
         });

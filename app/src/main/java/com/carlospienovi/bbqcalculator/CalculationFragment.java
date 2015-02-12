@@ -4,13 +4,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,13 +24,7 @@ public class CalculationFragment extends Fragment {
     private static final double BREAD_PER_PERSON = 0.3;
     private static final double LT_BEVERAGE_PER_PERSON = 1;
 
-    public static final String NUMBER_PEOPLE = "number_people";
-    public static final String MEAT = "meat";
-    public static final String SAUSAGE = "sausage";
-    public static final String BLOOD_SAUSAGE = "blood_sausage";
-    public static final String PROVOLONE_CHEESE = "provolone_cheese";
-    public static final String BREAD = "bread";
-    public static final String BEVERAGE = "beverage";
+    public static final String BARBECUE = "barbecue";
 
     private static final String MEAT_PRICE = "meat_preference";
     private static final String SAUSAGE_PRICE = "sausage_preference";
@@ -42,8 +33,7 @@ public class CalculationFragment extends Fragment {
     private static final String BREAD_PRICE = "bread_preference";
     private static final String BEVERAGE_PRICE = "beverage_preference";
 
-    boolean meat, sausage, bloodSausage, provoloneCheese, bread, beverage;
-    int numberPeople;
+    Barbecue mBarbecue;
     double meatPrice, sausagePrice, bloodSausagePrice, provoloneCheesePrice,
             breadPrice, beveragePrice;
 
@@ -54,17 +44,9 @@ public class CalculationFragment extends Fragment {
     public CalculationFragment() {
     }
 
-    public static CalculationFragment newInstance(int people, boolean meat, boolean sausage,
-                                                  boolean bloodSausage, boolean provoloneCheese,
-                                                  boolean bread, boolean beverage) {
+    public static CalculationFragment newInstance(Barbecue barbecue) {
         Bundle bundle = new Bundle();
-        bundle.putInt(NUMBER_PEOPLE, people);
-        bundle.putBoolean(MEAT, meat);
-        bundle.putBoolean(SAUSAGE, sausage);
-        bundle.putBoolean(BLOOD_SAUSAGE, bloodSausage);
-        bundle.putBoolean(PROVOLONE_CHEESE, provoloneCheese);
-        bundle.putBoolean(BREAD, bread);
-        bundle.putBoolean(BEVERAGE, beverage);
+        bundle.putParcelable(BARBECUE, barbecue);
         CalculationFragment f = new CalculationFragment();
         f.setArguments(bundle);
         return f;
@@ -99,54 +81,54 @@ public class CalculationFragment extends Fragment {
     private void updateTextViews() {
         mTextViewTitle.setText(String.format
                 (getString(R.string.text_view_result_title),
-                        numberPeople));
-        if (meat) {
+                        mBarbecue.getNumberPeople()));
+        if (mBarbecue.getMeat()) {
             mTextViewResultMeat.setVisibility(View.VISIBLE);
             mTextViewResultMeat.setText(String.format
                     (getString(R.string.text_view_result_meat),
-                            round((numberPeople * MEAT_PER_PERSON))));
+                            round((mBarbecue.getNumberPeople() * MEAT_PER_PERSON))));
         } else {
             mTextViewResultMeat.setVisibility(View.GONE);
         }
-        if (sausage) {
+        if (mBarbecue.getSausage()) {
             mTextViewResultSausage.setVisibility(View.VISIBLE);
             mTextViewResultSausage.setText(String.format
                     (getString(R.string.text_view_result_sausage),
-                            round((numberPeople * SAUSAGE_PER_PERSON))));
+                            round((mBarbecue.getNumberPeople() * SAUSAGE_PER_PERSON))));
         } else {
             mTextViewResultSausage.setVisibility(View.GONE);
         }
 
-        if (bloodSausage) {
+        if (mBarbecue.getBloodSausage()) {
             mTextViewResultBloodSausage.setVisibility(View.VISIBLE);
             mTextViewResultBloodSausage.setText(String.format
                     (getString(R.string.text_view_result_blood_sausage),
-                            round((numberPeople * SAUSAGE_PER_PERSON))));
+                            round((mBarbecue.getNumberPeople() * SAUSAGE_PER_PERSON))));
         } else {
             mTextViewResultBloodSausage.setVisibility(View.GONE);
         }
 
-        if (provoloneCheese) {
+        if (mBarbecue.getProvoloneCheese()) {
             mTextViewResultProvoloneCheese.setVisibility(View.VISIBLE);
             mTextViewResultProvoloneCheese.setText(String.format
                     (getString(R.string.text_view_result_provolone_cheese),
-                            round((numberPeople * PROVOLONE_PER_PERSON))));
+                            round((mBarbecue.getNumberPeople() * PROVOLONE_PER_PERSON))));
         } else {
             mTextViewResultProvoloneCheese.setVisibility(View.GONE);
         }
 
-        if (bread) {
+        if (mBarbecue.getBread()) {
             mTextViewResultBread.setVisibility(View.VISIBLE);
             mTextViewResultBread.setText(String.format
-                    (getString(R.string.text_view_result_bread), (int) (numberPeople * BREAD_PER_PERSON)));
+                    (getString(R.string.text_view_result_bread), (int) (mBarbecue.getNumberPeople() * BREAD_PER_PERSON)));
         } else {
             mTextViewResultBread.setVisibility(View.GONE);
         }
 
-        if (beverage) {
+        if (mBarbecue.getBeverage()) {
             mTextViewResultBeverage.setVisibility(View.VISIBLE);
             mTextViewResultBeverage.setText(String.format
-                    (getString(R.string.text_view_result_beverage), (numberPeople * LT_BEVERAGE_PER_PERSON)));
+                    (getString(R.string.text_view_result_beverage), (mBarbecue.getNumberPeople() * LT_BEVERAGE_PER_PERSON)));
         } else {
             mTextViewResultBeverage.setVisibility(View.GONE);
         }
@@ -158,13 +140,18 @@ public class CalculationFragment extends Fragment {
     private double getTotal() {
         double totalMeat = 0, totalSausage = 0, totalBloodSausage = 0,
                 totalProvoloneCheese = 0, totalBread = 0, totalBeverage = 0;
-        if (meat) totalMeat = numberPeople * MEAT_PER_PERSON * meatPrice;
-        if (sausage) totalSausage = numberPeople * SAUSAGE_PER_PERSON * sausagePrice;
-        if (bloodSausage) totalBloodSausage = numberPeople * SAUSAGE_PER_PERSON * bloodSausagePrice;
-        if (provoloneCheese)
-            totalProvoloneCheese = numberPeople * PROVOLONE_PER_PERSON * provoloneCheesePrice;
-        if (bread) totalBread = numberPeople * BREAD_PER_PERSON * breadPrice;
-        if (beverage) totalBeverage = numberPeople * LT_BEVERAGE_PER_PERSON * beveragePrice;
+        if (mBarbecue.getMeat())
+            totalMeat = mBarbecue.getNumberPeople() * MEAT_PER_PERSON * meatPrice;
+        if (mBarbecue.getSausage())
+            totalSausage = mBarbecue.getNumberPeople() * SAUSAGE_PER_PERSON * sausagePrice;
+        if (mBarbecue.getBloodSausage())
+            totalBloodSausage = mBarbecue.getNumberPeople() * SAUSAGE_PER_PERSON * bloodSausagePrice;
+        if (mBarbecue.getProvoloneCheese())
+            totalProvoloneCheese = mBarbecue.getNumberPeople() * PROVOLONE_PER_PERSON * provoloneCheesePrice;
+        if (mBarbecue.getBread())
+            totalBread = mBarbecue.getNumberPeople() * BREAD_PER_PERSON * breadPrice;
+        if (mBarbecue.getBeverage())
+            totalBeverage = mBarbecue.getNumberPeople() * LT_BEVERAGE_PER_PERSON * beveragePrice;
         double sum = totalMeat + totalSausage + totalBloodSausage +
                 totalProvoloneCheese + totalBread + totalBeverage;
         return round(sum);
@@ -173,13 +160,7 @@ public class CalculationFragment extends Fragment {
     private void getBundle() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            numberPeople = bundle.getInt(NUMBER_PEOPLE);
-            meat = bundle.getBoolean(MEAT);
-            sausage = bundle.getBoolean(SAUSAGE);
-            bloodSausage = bundle.getBoolean(BLOOD_SAUSAGE);
-            provoloneCheese = bundle.getBoolean(PROVOLONE_CHEESE);
-            bread = bundle.getBoolean(BREAD);
-            beverage = bundle.getBoolean(BEVERAGE);
+            mBarbecue = bundle.getParcelable(BARBECUE);
         }
     }
 
